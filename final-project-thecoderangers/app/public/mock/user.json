@@ -1,0 +1,40 @@
+{
+  "preferences": {
+    "rent": 1000,
+    "dietary": "NonVeg",
+    "spotType": "Private Room",
+    "smoking": "No",
+    "drinking": "No",
+    "beds": 0,
+    "baths": 0,
+    "laundry": "In Unit",
+    "pet": "No",
+    "distance": 1.9,
+    "rentInclude": ["Heat", "Hot Water", "Gas"],
+    "features": []
+  },
+  "resetToken": {
+    "token": 0
+  },
+  "_id": "656c520f31e45d4f9900b00a",
+  "firstName": "Mihir",
+  "lastName": "Adelkar",
+  "email": "mihir.adelkar@gmail.com",
+  "password": "$2a$10$lUaWD/U7OQz0a2wi5zMZaOhlOOn1..AIjQh1SYP2kUQlKoiEHLlPy",
+  "previousEducation": [
+    "Vidyalankar Polytechnic",
+    "K.C. College of Engineering"
+  ],
+  "listings": [],
+  "createdAt": "2023-12-03T10:01:51.442Z",
+  "updatedAt": "2023-12-04T00:33:48.174Z",
+  "__v": 0,
+  "aboutMe": "Hello i am mihir",
+  "homeTown": "Mumbai",
+  "intake": "Fall_2023",
+  "major": "Software Engineering Systems",
+  "phone": "(987) 654 3210",
+  "photo": "https://fakeimg.pl/100x100",
+  "university": "656c5d2d51f7d45e719f867f",
+  "workExperience": 0
+}

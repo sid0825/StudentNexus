@@ -1,0 +1,250 @@
+openapi: 3.1.0
+info:
+  title: University Group and Student Membership API
+  description: API for managing university groups and their student memberships.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local server
+
+paths:
+  /university_groups:
+    get:
+      summary: Get all university groups
+      responses:
+        '200':
+          description: List of university groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UniversityGroup'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Create a university group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversityGroup'
+            examples:
+              universityGroupExample:
+                summary: Example of a university group
+                value:
+                  groupID: "group123"
+                  groupName: "Computer Science Club"
+                  adminEmail: "admin@example.com"
+      responses:
+        '201':
+          description: University group created
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /university_groups/{groupID}:
+    get:
+      summary: Get a university group by ID
+      parameters:
+        - name: groupID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the university group
+      responses:
+        '200':
+          description: University group details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversityGroup'
+        '404':
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      summary: Update a university group
+      parameters:
+        - name: groupID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the university group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversityGroup'
+            examples:
+              updateGroupExample:
+                summary: Example of updating a university group
+                value:
+                  groupName: "Updated Group Name"
+                  adminEmail: "newadmin@example.com"
+      responses:
+        '200':
+          description: University group updated
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Delete a university group
+      parameters:
+        - name: groupID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the university group
+      responses:
+        '204':
+          description: University group deleted
+        '404':
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /university_groups/{groupID}/students:
+    get:
+      summary: Get all students in a university group
+      parameters:
+        - name: groupID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the university group
+      responses:
+        '200':
+          description: List of students in a university group
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+        '404':
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Add a student to a university group
+      parameters:
+        - name: groupID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the university group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+            examples:
+              studentExample:
+                summary: Example of a student
+                value:
+                  studentID: "student456"
+                  name: "John Doe"
+                  email: "johndoe@example.com"
+                  age: 20
+                  phoneNumber: "123-456-7890"
+                  university: "Example University"
+      responses:
+        '201':
+          description: Student added to university group
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    UniversityGroup:
+      type: object
+      properties:
+        groupID:
+          type: string
+          description: Unique identifier for the university group
+        groupName:
+          type: string
+          description: Name of the university group
+        adminEmail:
+          type: string
+          format: email
+          description: Email address of the group administrator
+
+    Student:
+      type: object
+      properties:
+        studentID:
+          type: string
+          description: Unique identifier for the student
+        name:
+          type: string
+          description: Full name of the student
+        email:
+          type: string
+          format: email
+          description: Email address of the student
+        age:
+          type: integer
+          description: Age of the student
+        phoneNumber:
+          type: string
+          description: Contact phone number of the student
+        university:
+          type: string
+          description: Name of the university the student is enrolled in
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Error message

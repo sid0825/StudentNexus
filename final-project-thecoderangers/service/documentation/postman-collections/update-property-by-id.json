@@ -1,0 +1,1 @@
+curl --location --request PUT 'http://localhost:3001/property/67427d2d20bc563931d6ebe1'

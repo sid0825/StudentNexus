@@ -1,0 +1,19 @@
+curl --location 'http://localhost:3001/listing/' \
+--header 'Content-Type: application/json' \
+--data '{
+    "propertyId": "656d0691cc923278d1620bf0",
+    "tenants": [
+        "674272ddb86be719e8f98e96"
+    ],
+    "propertyGenderPreference": "Male",
+    "spotsAvailable": [
+        {
+            "spotType": "Private Room",
+            "lease": "Onlease",
+            "gender": "Male",
+            "rent": 1500,
+            "utilities": 50,
+            "photo": "https://fakeimg.pl/400x400"
+        }
+    ]
+}'

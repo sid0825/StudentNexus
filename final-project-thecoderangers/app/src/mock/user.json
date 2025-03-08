@@ -1,0 +1,37 @@
+{
+  "preferences": {
+    "rent": 1000,
+    "dietary": "NonVeg",
+    "spotType": "Private Room",
+    "smoking": "No",
+    "drinking": "No",
+    "beds": 0,
+    "baths": 0,
+    "laundry": "In Unit",
+    "pet": "No",
+    "distance": 1.9,
+    "rentInclude": ["Heat", "Hot Water", "Gas"],
+    "features": []
+  },
+  "resetToken": {
+    "token": 0
+  },
+  "_id": "6743acc48b8d6d932dc10bbd",
+  "firstName": "Siddhesh",
+  "lastName": "Sawant",
+  "email": "sawant.sidd@northeastern.edu",
+  "password": "$2a$10$xu.8EMyZPvA5/.Bn8jhjTuFL5iQalxmItAgGQi.CgycRQ8WWTL9yi",
+  "previousEducation": ["Universal College of Engineering"],
+  "listings": [],
+  "createdAt": "2024-11-24T22:46:28.821+00:00",
+  "updatedAt": "2024-11-24T22:46:28.821+00:00",
+  "__v": 0,
+  "aboutMe": "Hello i am Sid",
+  "homeTown": "Mumbai",
+  "intake": "Fall_2024",
+  "major": "Information Systems",
+  "phone": 9833387411,
+  "photo": "https://fakeimg.pl/100x100",
+  "university": "6743789d59f45b95cf15741a",
+  "workExperience": 2
+}

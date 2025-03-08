@@ -1,0 +1,41 @@
+{
+    "propertyName": "259 West Newton St #9",
+    "photos": [
+        ""
+    ],
+    "description": "",
+    "location": {
+        "unit": "9",
+        "streetNumber": "259",
+        "streetName": "West Newton",
+        "city": "Boston",
+        "neighborhood": "Back Bay",
+        "state": "MA"
+    },
+    "availableDate": "2021-09-01T00:00:00.000Z",
+    "rent": 2600,
+    "fees": {
+        "BrokerFee": 2600,
+        "FirstMonth": 2600,
+        "LastMonth": 2600,
+        "SecurityDeposit": 2600
+    },
+    "propertyType": "Apartment",
+    "beds": 4,
+    "baths": 2,
+    "rentIncludes": [
+        "Heat",
+        "Hot Water",
+        "Gas"
+    ],
+    "laundry": "In Unit",
+    "pet": "No",
+    "university": [
+        "Northeastern University",
+        "Boston University"
+    ],
+    "distance": 1.9,
+    "squareFootage": 2500,
+    "status": "Active",
+    "features": []
+}

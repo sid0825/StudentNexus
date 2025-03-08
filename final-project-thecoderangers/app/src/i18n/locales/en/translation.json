@@ -1,0 +1,26 @@
+{
+    "greeting": "Welcome to Student Nexus",
+    "login-clause": "Already have an account?",
+    "register-clause": "Create new account?",
+    "email-placeholder": "Enter Email",
+    "password-placeholder": "Enter Password",
+    "last-name-placeholder": "Enter Last Name",
+    "first-name-placeholder": "Enter First Name",
+    "login-button": "LOGIN",
+    "login-title": "Login",
+    "register-button": "REGISTER",
+    "register-title": "Register",
+    "logout-button": "LOGOUT",
+    "keep-signed-in": "Keep me signed in",
+    "registration-page-link": "Registration Page",
+    "forgot-password-link": "Forgot Password?",
+    "renting_title": "Renting made quick & simple.",
+    "renting_description": "Simplify the house-hunting experience with Roombae. Your one-stop place for finding roommates and off-campus apartments in Boston.",
+    "find_my_home_button": "Find my Home",
+    "find_roommates_button": "Find Roommates",
+    "forget-password-title": "Forgot Password",
+    "reset-password-title": "Reset Password",
+    "forget-password-button": "Send Email",
+    "otp-placeholder": "Enter OTP"
+  }
+  

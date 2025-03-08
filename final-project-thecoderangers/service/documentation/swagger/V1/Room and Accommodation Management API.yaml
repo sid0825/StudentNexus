@@ -1,0 +1,262 @@
+openapi: 3.1.0
+info:
+  title: Room Management API
+  description: API for managing rooms within accommodations, including adding, updating, retrieving, and deleting room entries.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+paths:
+  /rooms:
+    get:
+      summary: Retrieve a list of all rooms
+      description: Fetches a list of all rooms available in the system with their details.
+      responses:
+        '200':
+          description: Successfully retrieved list of rooms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Room'
+              examples:
+                singleRoom:
+                  summary: Example of a single room
+                  value:
+                    - roomID: "R101"
+                      roomType: "single"
+                      status: "available"
+                      pricePerMonth: 500.0
+                doubleRoom:
+                  summary: Example of a double room
+                  value:
+                    - roomID: "R102"
+                      roomType: "double"
+                      status: "booked"
+                      pricePerMonth: 800.0
+
+    post:
+      summary: Add a new room
+      description: Creates a new room entry with the specified details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+            examples:
+              roomCreation:
+                summary: Example room creation
+                value:
+                  roomID: "R103"
+                  roomType: "suite"
+                  status: "available"
+                  pricePerMonth: 1200.0
+      responses:
+        '201':
+          description: Room created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /rooms/{roomID}:
+    get:
+      summary: Retrieve a specific room by ID
+      description: Fetches details for a room specified by its unique ID.
+      parameters:
+        - name: roomID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the room to retrieve.
+          examples:
+            roomIDExample:
+              summary: Example Room ID
+              value: "R101"
+      responses:
+        '200':
+          description: Room details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      summary: Replace a room's details
+      description: Fully replaces the details of a room specified by its unique ID.
+      parameters:
+        - name: roomID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the room to replace.
+          examples:
+            roomIDExample:
+              summary: Example Room ID for Replacement
+              value: "R102"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Room'
+            examples:
+              roomReplacement:
+                summary: Example room replacement
+                value:
+                  roomID: "R102"
+                  roomType: "double"
+                  status: "available"
+                  pricePerMonth: 850.0
+      responses:
+        '200':
+          description: Room details replaced successfully
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    patch:
+      summary: Update specific fields of a room
+      description: Partially updates details of a room specified by its unique ID.
+      parameters:
+        - name: roomID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the room to update.
+          examples:
+            roomIDExample:
+              summary: Example Room ID for Partial Update
+              value: "R103"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  description: Updated status of the room.
+                  examples: 
+                    - "available"
+                    - "booked"
+                pricePerMonth:
+                  type: number
+                  format: float
+                  description: Updated monthly price for the room.
+                  examples:
+                    - 1250.0
+                    - 850.0
+      responses:
+        '200':
+          description: Room details updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Room'
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Delete a room by ID
+      description: Removes a room specified by its unique ID from the system.
+      parameters:
+        - name: roomID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the room to delete.
+          examples:
+            roomIDExample:
+              summary: Example Room ID for Deletion
+              value: "R101"
+      responses:
+        '204':
+          description: Room deleted successfully
+        '404':
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Room:
+      type: object
+      required:
+        - roomID
+        - roomType
+        - status
+        - pricePerMonth
+      properties:
+        roomID:
+          type: string
+          description: Unique identifier for the room.
+          examples: 
+            - "R101"
+            - "R102"
+        roomType:
+          type: string
+          description: Type of the room (e.g., single, double, suite).
+          examples: 
+            - "single"
+            - "double"
+        status:
+          type: string
+          description: Current status of the room (e.g., available, booked).
+          examples: 
+            - "available"
+            - "booked"
+        pricePerMonth:
+          type: number
+          format: float
+          description: Monthly rental price of the room.
+          examples:
+            - 500.0
+            - 850.0
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: Error code associated with the problem.
+          examples:
+            - 404
+            - 400
+        message:
+          type: string
+          description: Description of the error.
+          examples:
+            - "Room not found"
+            - "Invalid input provided"

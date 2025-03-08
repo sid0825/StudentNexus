@@ -1,0 +1,244 @@
+openapi: 3.1.0
+info:
+  title: Booking Management API
+  description: API to manage accommodation bookings for students.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+tags:
+  - name: Bookings
+    description: Endpoints related to booking operations
+
+paths:
+  /students/{studentID}/bookings:
+    get:
+      summary: Get all bookings for a specific student
+      description: Retrieve a list of all bookings for a student by their unique ID.
+      tags:
+        - Bookings
+      parameters:
+        - name: studentID
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the student
+          example: "stu12345"
+      responses:
+        '200':
+          description: List of bookings retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Booking'
+              examples:
+                bookingsExample:
+                  value:
+                    [
+                      {
+                        "bookingID": "book001",
+                        "dateRange": {
+                          "startDate": "2024-12-01",
+                          "endDate": "2024-12-15"
+                        },
+                        "status": "confirmed",
+                        "totalPrice": 1200.5
+                      }
+                    ]
+
+  /students/{studentID}/bookings/{bookingID}:
+    put:
+      summary: Update a booking
+      description: Fully update a specific booking for a student.
+      tags:
+        - Bookings
+      parameters:
+        - name: studentID
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "stu12345"
+        - name: bookingID
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "book001"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Booking'
+            examples:
+              updateBookingExample:
+                value:
+                  {
+                    "bookingID": "book001",
+                    "dateRange": {
+                      "startDate": "2024-12-10",
+                      "endDate": "2024-12-20"
+                    },
+                    "status": "confirmed",
+                    "totalPrice": 1800.0
+                  }
+      responses:
+        '200':
+          description: Booking updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '404':
+          description: Booking not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    patch:
+      summary: Partially update a booking
+      description: Partially update a specific booking's information.
+      tags:
+        - Bookings
+      parameters:
+        - name: studentID
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "stu12345"
+        - name: bookingID
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "book001"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dateRange:
+                  $ref: '#/components/schemas/DateRange'
+                status:
+                  type: string
+                  description: Status of the booking
+                  examples:
+                    - "confirmed"
+                    - "pending"
+                totalPrice:
+                  type: number
+                  format: float
+                  description: Total price of the booking
+            examples:
+              partialUpdateBookingExample:
+                value:
+                  {
+                    "status": "cancelled",
+                    "totalPrice": 0
+                  }
+      responses:
+        '200':
+          description: Booking partially updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '404':
+          description: Booking not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Delete a booking
+      description: Remove a specific booking for a student.
+      tags:
+        - Bookings
+      parameters:
+        - name: studentID
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "stu12345"
+        - name: bookingID
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "book002"
+      responses:
+        '204':
+          description: Booking deleted successfully
+        '404':
+          description: Booking not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Booking:
+      type: object
+      required:
+        - bookingID
+        - dateRange
+        - status
+        - totalPrice
+      properties:
+        bookingID:
+          type: string
+          description: Unique identifier for the booking
+          examples: ["book001"]
+        dateRange:
+          $ref: '#/components/schemas/DateRange'
+        status:
+          type: string
+          description: Status of the booking
+          examples: ["confirmed", "pending"]
+        totalPrice:
+          type: number
+          format: float
+          description: Total price of the booking
+          examples: [1200.5]
+
+    DateRange:
+      type: object
+      required:
+        - startDate
+        - endDate
+      properties:
+        startDate:
+          type: string
+          format: date
+          description: Start date of the booking
+          examples: ["2024-12-01"]
+        endDate:
+          type: string
+          format: date
+          description: End date of the booking
+          examples: ["2024-12-15"]
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Error code
+          examples: [404]
+        message:
+          type: string
+          description: Error message
+          examples: ["Resource not found"]

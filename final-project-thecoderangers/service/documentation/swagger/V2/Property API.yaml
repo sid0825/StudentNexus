@@ -1,0 +1,243 @@
+openapi: 3.1.0
+info:
+  title: Properties API
+  description: API for managing properties
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5000
+    description: Development server
+
+paths:
+  /properties:
+    get:
+      summary: Get all properties
+      tags:
+        - Properties
+      responses:
+        '200':
+          description: List of all properties
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Property'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Create a new property
+      tags:
+        - Properties
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewProperty'
+            examples:
+              newPropertyExample:
+                summary: Example of a property
+                value:
+                  propertyName: "The longwood Apartments"
+                  photos:
+                    - ""
+                  description: ""
+                  location:
+                    unit: "911"
+                    streetNumber: "259"
+                    streetName: "Brigham Circle"
+                    city: "Boston"
+                    neighborhood: "Mission Mill"
+                    state: "MA"
+                    coordinates:
+                      latitude: "42.3319"
+                      longitude: "-71.1212"
+                  availableDate: "2021-09-01T00:00:00.000Z"
+                  rent: 2600
+                  fees:
+                    BrokerFee: 2300
+                    FirstMonth: 2700
+                    LastMonth: 2600
+                    SecurityDeposit: 2600
+                  propertyType: "Apartment"
+                  beds: 4
+                  baths: 2
+                  rentIncludes:
+                    - "Hot Water"
+                    - "Gas"
+                  laundry: "In Unit"
+                  pet: "No"
+                  university:
+                    - "Northeastern University"
+                    - "Boston University"
+                  distance: 1.9
+                  squareFootage: 2500
+                  status: "Active"
+                  features: []
+      responses:
+        '201':
+          description: Property created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Property'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Property:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the property
+        propertyName:
+          type: string
+          description: Name of the property
+        photos:
+          type: array
+          items:
+            type: string
+          description: List of photo URLs
+        description:
+          type: string
+          description: Detailed description of the property
+        location:
+          type: object
+          properties:
+            unit:
+              type: string
+              description: Unit number of the property
+            streetNumber:
+              type: string
+              description: Street number
+            streetName:
+              type: string
+              description: Street name
+            city:
+              type: string
+              description: City
+            neighborhood:
+              type: string
+              description: Neighborhood
+            state:
+              type: string
+              description: State
+            coordinates:
+              type: object
+              properties:
+                latitude:
+                  type: string
+                  description: Latitude of the property
+                longitude:
+                  type: string
+                  description: Longitude of the property
+        availableDate:
+          type: string
+          format: date
+          description: Available date for the property
+        rent:
+          type: number
+          description: Monthly rent
+        fees:
+          type: object
+          properties:
+            BrokerFee:
+              type: number
+              description: Broker fee
+            FirstMonth:
+              type: number
+              description: First month's rent
+            LastMonth:
+              type: number
+              description: Last month's rent
+            SecurityDeposit:
+              type: number
+              description: Security deposit
+        propertyType:
+          type: string
+          enum:
+            - Apartment
+            - House
+            - Townhouse
+            - Condo
+        beds:
+          type: integer
+          description: Number of bedrooms
+        baths:
+          type: integer
+          description: Number of bathrooms
+        rentIncludes:
+          type: array
+          items:
+            type: string
+            enum:
+              - Heat
+              - Hot Water
+              - Gas
+              - None
+        laundry:
+          type: string
+          enum:
+            - In Unit
+            - In Building
+            - None
+          description: Laundry facilities
+        pet:
+          type: string
+          enum:
+            - Yes
+            - No
+            - With Restrictions
+          description: Pet policy
+        university:
+          type: array
+          items:
+            type: string
+          description: Nearby universities
+        distance:
+          type: number
+          description: Distance from universities in miles
+        squareFootage:
+          type: number
+          description: Size of the property in square feet
+        status:
+          type: string
+          enum:
+            - Active
+            - Inactive
+          description: Current status of the property
+        features:
+          type: array
+          items:
+            type: string
+          description: Additional features
+
+    NewProperty:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Property'
+        - properties:
+            id:
+              readOnly: true
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Error message

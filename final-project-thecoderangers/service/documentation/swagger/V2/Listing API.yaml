@@ -1,0 +1,235 @@
+openapi: 3.1.0
+info:
+  title: Listings API
+  description: API for managing listings
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5000
+    description: Development server
+
+paths:
+  /listings:
+    get:
+      summary: Get all listings
+      tags:
+        - Listings
+      responses:
+        '200':
+          description: List of all listings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Listing'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Create a new listing
+      tags:
+        - Listings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewListing'
+            examples:
+              newListingExample:
+                summary: Example of a listing
+                value:
+                  propertyId: "656d0691cc923278d1620bf0"
+                  tenants:
+                    - "674272ddb86be719e8f98e96"
+                  propertyGenderPreference: "Male"
+                  spotsAvailable:
+                    - spotType: "Private Room"
+                      lease: "Onlease"
+                      gender: "Male"
+                      rent: 1500
+                      utilities: 50
+                      photo: "https://fakeimg.pl/400x400"
+      responses:
+        '201':
+          description: Listing created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Listing'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /listings/{id}:
+    get:
+      summary: Get a listing by ID
+      tags:
+        - Listings
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the listing
+      responses:
+        '200':
+          description: Details of the requested listing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Listing'
+        '404':
+          description: Listing not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      summary: Update a listing
+      tags:
+        - Listings
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the listing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewListing'
+            examples:
+              updatedListingExample:
+                summary: Example of updating a listing
+                value:
+                  propertyId: "656d0691cc923278d1620bf0"
+                  propertyGenderPreference: "Male"
+                  spotsAvailable:
+                    - spotType: "Shared Room"
+                      lease: "Temporary"
+                      gender: "Male"
+                      rent: 1200
+                      utilities: 100
+                      photo: "https://fakeimg.pl/400x400"
+      responses:
+        '200':
+          description: Listing updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Listing'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Listing not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Delete a listing
+      tags:
+        - Listings
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the listing
+      responses:
+        '204':
+          description: Listing deleted successfully
+        '404':
+          description: Listing not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Listing:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the listing
+        propertyId:
+          type: string
+          description: Unique identifier for the associated property
+        tenants:
+          type: array
+          items:
+            type: string
+          description: Array of tenant user IDs
+        propertyGenderPreference:
+          type: string
+          enum:
+            - Male
+            - Female
+            - Mixed
+          description: Gender preference for the property
+        spotsAvailable:
+          type: array
+          items:
+            type: object
+            properties:
+              spotType:
+                type: string
+                description: Type of spot (e.g., Private Room, Shared Room)
+              lease:
+                type: string
+                description: Lease type (e.g., Onlease, Temporary)
+              gender:
+                type: string
+                enum:
+                  - Male
+                  - Female
+                description: Gender for the spot
+              rent:
+                type: number
+                description: Monthly rent
+              utilities:
+                type: number
+                description: Monthly utilities cost
+              photo:
+                type: string
+                description: URL to the spot photo
+
+    NewListing:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Listing'
+        - properties:
+            id:
+              readOnly: true
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Error message

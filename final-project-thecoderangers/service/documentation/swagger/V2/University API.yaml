@@ -1,0 +1,180 @@
+openapi: 3.1.0
+info:
+  title: University API
+  description: API for managing universities
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:5000
+    description: Development server
+
+paths:
+  /:
+    get:
+      summary: Get all universities
+      tags:
+        - Universities
+      responses:
+        '200':
+          description: List of all universities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/University'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      summary: Create a new university
+      tags:
+        - Universities
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUniversity'
+      responses:
+        '201':
+          description: University created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/University'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /{id}:
+    get:
+      summary: Get a university by ID
+      tags:
+        - Universities
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the university
+      responses:
+        '200':
+          description: Details of the requested university
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/University'
+        '404':
+          description: University not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      summary: Update a university
+      tags:
+        - Universities
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the university
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/University'
+      responses:
+        '200':
+          description: University updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/University'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: University not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      summary: Delete a university
+      tags:
+        - Universities
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the university
+      responses:
+        '204':
+          description: University deleted successfully
+        '404':
+          description: University not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    University:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the university
+        name:
+          type: string
+          description: Name of the university
+        location:
+          type: string
+          description: Location of the university
+        domain:
+          type: string
+          description: Unique domain of the university
+
+    NewUniversity:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the university
+        location:
+          type: string
+          description: Location of the university
+        domain:
+          type: string
+          description: Unique domain of the university
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: HTTP status code
+        message:
+          type: string
+          description: Error message

@@ -1,0 +1,17 @@
+curl --location 'http://localhost:3001/user' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstName": "Shubham",
+    "lastName": "Salian",
+    "email": "tvsb0@northeastern.edu",
+    "password": "hp@123",
+    "phone": "8574217904",
+    "homeTown": "India",
+    "major": "computer software engg",
+    "intake": "fall2024",
+    "workExperience": 0,
+    "previousEducation": "Ahemdabad University",
+    "aboutMe": "Im Scoially Antisocial",
+    "photo": "https://fakeimg.pl/400x400"
+
+}'

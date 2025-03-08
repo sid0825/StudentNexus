@@ -1,0 +1,17 @@
+{
+    "propertyId": "656d0691cc923278d1620bf0",
+    "tenants": [
+        "656c520f31e45d4f9900b00a"
+    ],
+    "propertyGenderPreference": "Mixed",
+    "spotsAvailable": [
+        {
+            "spotType": "Private Room",
+            "lease": "Onlease",
+            "gender": "Male",
+            "rent": 1200,
+            "utilities": 50,
+            "photo": "https://fakeimg.pl/400x400"
+        }
+    ]
+}

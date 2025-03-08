@@ -1,0 +1,159 @@
+openapi: 3.1.0
+info:
+  title: Broker and Accommodation Listings API
+  description: API for managing brokers and their listed accommodations.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Local server
+
+paths:
+  /brokers:
+    get:
+      summary: Get all brokers
+      description: Retrieve a list of all brokers registered in the system.
+      responses:
+        '200':
+          description: List of brokers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Broker'
+              examples:
+                example1:
+                  summary: Example response
+                  value:
+                    - brokerID: "123"
+                      name: "John Doe"
+                      contactNumber: "+1234567890"
+                      email: "johndoe@example.com"
+                    - brokerID: "124"
+                      name: "Jane Smith"
+                      contactNumber: "+1234567891"
+                      email: "janesmith@example.com"
+
+    post:
+      summary: Create a broker
+      description: Register a new broker with contact details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Broker'
+            examples:
+              example1:
+                summary: Example request body
+                value:
+                  brokerID: "125"
+                  name: "Alice Johnson"
+                  contactNumber: "+1234567892"
+                  email: "alicejohnson@example.com"
+      responses:
+        '201':
+          description: Broker created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Broker'
+
+  /brokers/{brokerID}/accommodations:
+    get:
+      summary: Get accommodations listed by a broker
+      description: Retrieve a list of accommodations listed by a specified broker.
+      parameters:
+        - name: brokerID
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Unique identifier of the broker.
+          examples:
+            example1:
+              summary: Example broker ID
+              value: "123"
+      responses:
+        '200':
+          description: List of accommodations listed by a broker
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Accommodation'
+              examples:
+                example1:
+                  summary: Example response
+                  value:
+                    - accommodationID: "A1"
+                      name: "Cozy Apartment"
+                      address:
+                        street: "123 Elm St"
+                        city: "Springfield"
+                        state: "IL"
+                        zipCode: "62704"
+                      capacity: 4
+                      amenities: "Wi-Fi, Parking, Pool"
+                    - accommodationID: "A2"
+                      name: "Spacious Condo"
+                      address:
+                        street: "456 Maple Ave"
+                        city: "Springfield"
+                        state: "IL"
+                        zipCode: "62701"
+                      capacity: 6
+                      amenities: "Wi-Fi, Parking, Gym"
+
+components:
+  schemas:
+    Broker:
+      type: object
+      required:
+        - brokerID
+        - name
+        - contactNumber
+        - email
+      properties:
+        brokerID:
+          type: string
+          description: Unique identifier for the broker.
+          examples:
+            - summary: Example broker ID
+              value: "123"
+        name:
+          type: string
+          description: Name of the broker.
+          examples:
+            - summary: Example name
+              value: "John Doe"
+        contactNumber:
+          type: string
+          description: Contact number of the broker.
+          examples:
+            - summary: Example contact number
+              value: "+1234567890"
+        email:
+          type: string
+          format: email
+          description: Email address of the broker.
+          examples:
+            - summary: Example email
+              value: "johndoe@example.com"
+
+    Accommodation:
+      type: object
+      required:
+        - accommodationID
+        - name
+        - address
+        - capacity
+      properties:
+        accommodationID:
+          type: string
+          description: Unique identifier for the accommodation.
+          examples:
+            - summary: Example accommodation ID
+              value: "A1"

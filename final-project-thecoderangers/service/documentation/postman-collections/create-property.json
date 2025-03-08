@@ -1,0 +1,49 @@
+curl --location 'http: //localhost:3001/property' \
+
+--header 'Content-Type: application/json' \
+
+--data '{
+    "propertyName": "The longwood Apartments",
+    "photos": [
+        ""
+    ],
+    "description": "",
+    "location": {
+        "unit": "911",
+        "streetNumber": "259",
+        "streetName": "Brigham Circle",
+        "city": "Boston",
+        "neighborhood": "Mission Mill",
+        "state": "MA",
+        "coordinates": {
+            "latitude": "42.335548",
+            "longitude": "-71.100279"
+        }
+    },
+    "availableDate": "2021-09-01T00:00:00.000Z",
+    "rent": 2600,
+    "fees": {
+        "BrokerFee": 2300,
+        "FirstMonth": 2700,
+        "LastMonth": 2600,
+        "SecurityDeposit": 2600
+    },
+    "propertyType": "Apartment",
+    "beds": 4,
+    "baths": 2,
+    "rentIncludes": [
+        "Hot Water",
+        "Gas"
+    ],
+    "laundry": "In Unit",
+    "pet": "No",
+    "university": [
+        "Northeastern University",
+        "Boston University"
+    ],
+    "distance": 1.9,
+    "squareFootage": 2500,
+    "status": "Active",
+    "features": []
+}'
+ 

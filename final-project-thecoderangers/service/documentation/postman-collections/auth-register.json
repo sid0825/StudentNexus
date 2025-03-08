@@ -1,0 +1,8 @@
+curl --location 'http://localhost:3001/auth/register' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstName":"Hrutika",
+    "lastName": "Patel",
+    "email": "patel.hru@northeastern.edu",
+    "password": "hrutika@456"
+}'

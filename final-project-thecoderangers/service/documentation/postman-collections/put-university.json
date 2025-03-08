@@ -1,0 +1,7 @@
+curl --location --request PUT 'http://localhost:3001/university/67427f0a31aaba0350b7505c' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "Northeastern University",
+    "location": "Boston, MA",
+    "domain": "Electronics Engineering"
+}'
