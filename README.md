@@ -2,6 +2,9 @@
 
 Project Name: Student Nexus
 
+## 🚀 Live Demo
+[Click to open Student Nexus](https://student-nexus.vercel.app/)
+
 Video Link - [https://northeastern-my.sharepoint.com/personal/bagwe_sh_northeastern_edu/_layouts/15/stream.aspx?id=%2Fpersonal%2Fbagwe%5Fsh%5Fnortheastern%5Fedu%2FDocuments%2FRecordings%2FCall%20with%20Web%20Dev%20%2D%20911%2D20241207%5F232954%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E727addff%2D5b4c%2D4ea1%2Da77f%2D26d4063d6ec2&ga=1](https://northeastern-my.sharepoint.com/:v:/r/personal/bagwe_sh_northeastern_edu/Documents/Recordings/TheCodeRangers-StudentNexus.mp4?csf=1&web=1&e=41DYXo&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3d&xsdata=MDV8MDJ8YS5hcnVscmFqQG5vcnRoZWFzdGVybi5lZHV8OGU0NzliYmE4OTdkNDUxNjQyNGMwOGRkMWMwZWM5MmN8YThlZWMyODFhYWEzNGRhZWFjOWI5YTM5OGI5MjE1ZTd8MHwwfDYzODY5NzU3MjAzMjA3Nzk0MnxVbmtub3dufFRXRnBiR1pzYjNkOGV5SkZiWEIwZVUxaGNHa2lPblJ5ZFdVc0lsWWlPaUl3TGpBdU1EQXdNQ0lzSWxBaU9pSlhhVzR6TWlJc0lrRk9Jam9pVFdGcGJDSXNJbGRVSWpveWZRPT18MHx8fA%3d%3d&sdata=Z1RZaW5YQnBYRVBKQmpXNC9TZUdxVEQxMTR4QWQvU0Ywb3RZbmlCb3ZzVT0%3d)
 
 Team members:
